@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Rohan Alexander&#39;s personal website.">
+<title>
+    Cleaning Hansard: The pay’s not great but the work is hard - Rohan Alexander
+</title>
+
+
+
+<link rel="shortcut icon" href="/sam.ico">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.4321edce0de245f4b1d32680d89ac669940fe5dec17e1791c721d9a0954987b4.css" integrity="sha256-QyHtzg3iRfSx0yaA2JrGaZQP5d7BfheRxyHZoJVJh7Q=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/tn.png"/>
+
+<meta name="twitter:title" content="Cleaning Hansard: The pay’s not great but the work is hard"/>
+<meta name="twitter:description" content="Thanks to Monica for the title.
+After getting an email along the lines of &lsquo;hey aren&rsquo;t you doing something with Australia&rsquo;s Hansard?&rsquo; I realised that I&rsquo;ve been a bit remiss about sharing my Australian Hansard progress. This is the first of a series of posts to fix that.
+&quot;Things that are still on your computer are approximately useless.&quot; -@drob #eUSR #eUSR2017 pic.twitter.com/nS3IBiRHBn
+&mdash; AmeliaMN (@AmeliaMN) November 3, 2017  I haven&rsquo;t written about what I&rsquo;ve been doing with Australian Hansard to this point because: 1) my knowledge of the political science literature is piecemeal and I&rsquo;m sure someone must have already done all this and I just can&rsquo;t find it; and 2) my coding knowledge is also piecemeal and there&rsquo;s no doubt a million ways to better do what I&rsquo;ve done so far."/>
+
+<meta property="og:title" content="Cleaning Hansard: The pay’s not great but the work is hard" />
+<meta property="og:description" content="Thanks to Monica for the title.
+After getting an email along the lines of &lsquo;hey aren&rsquo;t you doing something with Australia&rsquo;s Hansard?&rsquo; I realised that I&rsquo;ve been a bit remiss about sharing my Australian Hansard progress. This is the first of a series of posts to fix that.
+&quot;Things that are still on your computer are approximately useless.&quot; -@drob #eUSR #eUSR2017 pic.twitter.com/nS3IBiRHBn
+&mdash; AmeliaMN (@AmeliaMN) November 3, 2017  I haven&rsquo;t written about what I&rsquo;ve been doing with Australian Hansard to this point because: 1) my knowledge of the political science literature is piecemeal and I&rsquo;m sure someone must have already done all this and I just can&rsquo;t find it; and 2) my coding knowledge is also piecemeal and there&rsquo;s no doubt a million ways to better do what I&rsquo;ve done so far." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/cleaning-hansard-part-1/" />
+<meta property="og:image" content="/tn.png"/>
+<meta property="article:published_time" content="2018-08-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-08-13T00:00:00+00:00" /><meta property="og:site_name" content="Rohan Alexander" />
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        Cleaning Hansard: The pay’s not great but the work is hard
+        
+    </title>
+</head>
+
+<body>
+    
+    
+    <header class="wrap flex-container">
+        <h1>Cleaning Hansard: The pay’s not great but the work is hard</h1>
+    </header>
+    
+    <main class="wrap">
+        
+        <article role="article" class="flex-container"><p><em>Thanks to Monica for the title.</em></p>
+<p>After getting an email along the lines of &lsquo;hey aren&rsquo;t you doing something with Australia&rsquo;s Hansard?&rsquo; I realised that I&rsquo;ve been a bit remiss about sharing my Australian Hansard progress. This is the first of a series of posts to fix that.</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">&quot;Things that are still on your computer are approximately useless.&quot; -<a href="https://twitter.com/drob?ref_src=twsrc%5Etfw">@drob</a> <a href="https://twitter.com/hashtag/eUSR?src=hash&amp;ref_src=twsrc%5Etfw">#eUSR</a> <a href="https://twitter.com/hashtag/eUSR2017?src=hash&amp;ref_src=twsrc%5Etfw">#eUSR2017</a> <a href="https://t.co/nS3IBiRHBn">pic.twitter.com/nS3IBiRHBn</a></p>&mdash; AmeliaMN (@AmeliaMN) <a href="https://twitter.com/AmeliaMN/status/926509282874585089?ref_src=twsrc%5Etfw">November 3, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>I haven&rsquo;t written about what I&rsquo;ve been doing with Australian Hansard to this point because: 1) my knowledge of the political science literature is piecemeal and I&rsquo;m sure someone must have already done all this and I just can&rsquo;t find it; and 2) my coding knowledge is also piecemeal and there&rsquo;s no doubt a million ways to better do what I&rsquo;ve done so far. If anyone has advice on either aspect (or anything really!) I&rsquo;d be keen to hear it - please email.</p>
+<p>Best I can tell, Australian Hansard is a treasure-trove of data and it&rsquo;s hard to believe it hasn&rsquo;t been more analysed. I&rsquo;m probably missing a whole bunch of literature (insert standard joke about economists here) but so far I can really only find a handful of papers using Australia&rsquo;s Hansard.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> There&rsquo;s plenty of work using the parliamentary records of other Commonwealth countries such as Canada<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>, NZ<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> and the UK<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>. I think that in Australia it&rsquo;s really only Patrick Leslie who may be using it at the moment (big thank you to Jill Sheppard for pointing this out), but I&rsquo;ll update this if I find others.</p>
+<p>The good news is that Australia&rsquo;s Hansard has been digitised and is available on the parliament&rsquo;s website, so a figurative pseudo-Manhattan-project isn&rsquo;t required (cf. what was needed in Canada, see: <a href="https://www.lipad.ca/)">https://www.lipad.ca/)</a>. If you just want short, specific, sections then the situation is fine - for pre-1981 go to Tim Sherratt&rsquo;s brilliant Historic Hansard website (<a href="http://historichansard.net">http://historichansard.net</a>); for 1981 to 2006 just use the parliament&rsquo;s website; and for 2006 onward just use Open Australia. The bad news is that Hansard isn&rsquo;t really available as a nice corpus for larger scale analysis. Making this nice corpus has been keeping me busy, and will be the subject of this series of posts.</p>
+<p>Helpfully, various people/organisations have gone to the Hansard website to get the XML files they provide and made them available as an easy download (note that these tend to have been posted as they were provided by the parliament, so they&rsquo;re full of typos, transcription errors, and a bunch of other mistakes):</p>
+<ul>
+<li>1901-1980 Hansard is available as XML from Tim Sherratt&rsquo;s Historic Hansard Github - <a href="https://github.com/wragge/hansard-xml">https://github.com/wragge/hansard-xml</a>.</li>
+<li>1998-2014 Hansard is available from Andrew Turpin&rsquo;s website at University of Melbourne (<a href="https://people.eng.unimelb.edu.au/aturpin/qtCorpus/index.html)">https://people.eng.unimelb.edu.au/aturpin/qtCorpus/index.html)</a>.</li>
+<li>2006-current is available from Open Australia&rsquo;s website (<a href="http://data.openaustralia.org.au/origxml/)">http://data.openaustralia.org.au/origxml/)</a>.</li>
+</ul>
+<p>These helpful people/organisations were able to get those dates (1901-1980 and 1998-current) because the Hansard provides the XML for those years on their website. The problem is the 1980s and the early/mid 1990s because they don&rsquo;t have the XML available on the website (and from emails with them - it seems as though they simply don&rsquo;t have it) - the only choice seems to be either to scrape it manually from the Hansard website or to grab all the PDFs, convert them, and then fix the mistakes. I&rsquo;ve started on the second option - unsure how wise it is but I don&rsquo;t know of any alternative.</p>
+<p>Future posts:</p>
+<ul>
+<li>Who has been elected to parliament?</li>
+<li>What divisions are relevant?</li>
+<li>What parties are relevant?</li>
+<li>Hansard pre-1981</li>
+<li>Hansard post-1980</li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>For instance: Turpin &lsquo;An Attempt to Measure the Quality of Questions in Question Time of the Australian Federal Parliament&rsquo;. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>For instance: Beelen, Thijm, Cochrane, Halvemaan, Hirst, Kimmins, Lijbrink, Marx, Naderi, Rheault, Polyanovsky, Whyte &lsquo;Digitization of the Canadian Parliamentary Debates&rsquo;. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>For instance: Curran, Higham, Ortiz, Vasques Filho &lsquo;Look Who’s Talking: Bipartite Networks as Representations of a Topic Model of New Zealand Parliamentary Speeches&rsquo;. <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>For instance: Abercrombie, Batista-Navarro &lsquo;Aye or No? Speech-level Sentiment Analysis of Hansard UK Parliamentary Debate Transcripts&rsquo; <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</article>
+        
+
+        
+        
+        <nav role="navigation" class="flex-container bottom-menu">
+            
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/about">about</a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/academic">academic</a>
+        
+            &#183; 
+            <a href="/blog">blog</a>
+        
+            &#183; 
+            <a href="/bookshelf">bookshelf</a>
+        
+            &#183; 
+            <a href="/brownbag">brownbag</a>
+        
+    
+    &#183; 
+    <a href="/">
+        home
+    </a>
+
+</p>
+        </nav>
+        
+        
+    </main>
+    
+    <footer class="flex-container footer">Built with Hugo, Blogdown and the &lsquo;Call me Sam&rsquo; theme.</footer>
+    
+    
+</body>
+
+</html>

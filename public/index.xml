@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rohan Alexander</title>
+    <link>/</link>
+    <description>Recent content on Rohan Alexander</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-ca</language>
+    <lastBuildDate>Tue, 13 Feb 2018 13:42:49 -0500</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tidying the 2019 Kenyan Census</title>
+      <link>/blog/2020-04-14-tidying-the-2019-kenyan-census/</link>
+      <pubDate>Tue, 14 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2020-04-14-tidying-the-2019-kenyan-census/</guid>
+      <description>Introduction The distribution of population by age, sex, and administrative unit from the 2019 Kenyan census can be downloaded here: https://www.knbs.or.ke/?wpdmpro=2019-kenya-population-and-housing-census-volume-iii-distribution-of-population-by-age-sex-and-administrative-units.
+And while it is great that they make it easily available, and it is easy to look-up a particular result, it is not overly useful to do larger-scale data analysis, such as building a Bayesian hierarchical model.
+In this blog post I convert a PDF of Kenyan census results of counts, by age and sex, by county and sub-county, into a tidy dataset that can be analysed.</description>
+    </item>
+    
+    <item>
+      <title>A review of &#39;Forecasting elections with non-representative polls&#39;</title>
+      <link>/blog/2020-02-11-a-review-of-forecasting-elections-with-non-representative-polls/</link>
+      <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2020-02-11-a-review-of-forecasting-elections-with-non-representative-polls/</guid>
+      <description>Introduction ‘Forecasting elections with non-representative polls’ by Wei Wang, David Rothschild, Sharad Goel, and Andrew Gelman, published in 2015 in the International Journal of Forecasting, is a wonderful paper that should be more widely read, studied, and cited.1 It touches on many aspects from across social sciences and applied statistics, allowing readers from a variety of backgrounds a chance to better understand multi-level regression with post-stratification (MRP), and how they might contribute to its development or apply it in their own contexts.</description>
+    </item>
+    
+    <item>
+      <title>Getting started with MRP</title>
+      <link>/blog/2019-12-04-getting_started_with_mrp/</link>
+      <pubDate>Tue, 03 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2019-12-04-getting_started_with_mrp/</guid>
+      <description>Overview Multi-level regression with post-stratification (MRP) is a popular way to adjust non-representative samples to better analyse opinion and other survey responses. It uses a regression model to relate individual-level survey responses to various characteristics and then rebuilds the sample to better match the population. In this way MRP can not only allow a better understanding of responses, but also allow us to analyse data that may otherwise be unusable.</description>
+    </item>
+    
+    <item>
+      <title>Gathering and analysing text data</title>
+      <link>/blog/getting-started-with-text/</link>
+      <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/getting-started-with-text/</guid>
+      <description>Introduction Text modelling is an exciting area of research. But many guides assume that you already have a nice dataset. Similarly, web scraping is an exciting way to get information, but not many explanations go on to explain what you could do with it. This post attempts to go from scraping text from a website through to modelling the topics. It’s not meant to be an exhaustive post, but should hopefully provide enough that you can get started with your own project and know where to go for more information.</description>
+    </item>
+    
+    <item>
+      <title>Cleaning Hansard: The pay&#39;s not great but the work is hard</title>
+      <link>/blog/cleaning-hansard/</link>
+      <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/cleaning-hansard/</guid>
+      <description>Thanks to Monica for the title.
+After getting an email along the lines of ‘hey aren’t you doing something with Australia’s Hansard?’ I realised that I’ve been a bit remiss about sharing my Australian Hansard progress. This is the first of a series of posts to fix that.
+{{&amp;lt; tweet 926509282874585089 &amp;gt;}}
+I haven’t written about what I’ve been doing with Australian Hansard to this point because: 1) my knowledge of the political science literature is piecemeal and I’m sure someone must have already done all this and I just can’t find it; and 2) my coding knowledge is also piecemeal and there’s no doubt a million ways to better do what I’ve done so far.</description>
+    </item>
+    
+    <item>
+      <title>The SQL Is Never As Good As The Original</title>
+      <link>/blog/the-sql-is-never-as-good/</link>
+      <pubDate>Sat, 28 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/the-sql-is-never-as-good/</guid>
+      <description>Thanks to Monica for the title.
+Introduction SQL is a popular way of working with data. Advanced users probably do a lot with it alone, but even just having a working knowledge of SQL has increased the number of datasets that I can get data from to then analyse with other tools such as R or Python. You can use SQL within RStudio if you want. The following are a few notes to help future-Rohan when he needs to use SQL.</description>
+    </item>
+    
+    <item>
+      <title>Topic Modelling - Theory</title>
+      <link>/blog/topic-modelling-theory/</link>
+      <pubDate>Fri, 29 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/topic-modelling-theory/</guid>
+      <description>These are notes that I put together in the process of trying to understand how topic modelling works with a view to applying it to Australia’s Hansard. There are undoubtedly mistakes and aspects that are unclear. Please get in touch if you have any suggestions.
+Overview Each statement in Hansard needs to be classified by its topic. Sometimes Hansard includes titles that make the topic clear. But not every statement has a title and the titles do not always define topics in a well-defined and consistent way.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Tue, 13 Feb 2018 13:42:49 -0500</pubDate>
+      
+      <guid>/about/</guid>
+      <description>Hi, I’m Rohan Alexander.
+I am a post-doc at the Faculty of Information Sciences at the University of Toronto, Canada. From July I&amp;rsquo;ll be an Assistant Professor in the iSchool and Statistical Sciences at the University of Toronto.
+My academic research answers questions in social sciences, such as: are our politicians actually representing us, do elections matter, and how can we make political polling better. To do this I build, clean, maintain, and share datasets in a reproducible way, and then use quantitative methods, such as text analysis, machine learning, and Bayesian hierarchical models, to analyse them.</description>
+    </item>
+    
+    <item>
+      <title>Academic</title>
+      <link>/academic/</link>
+      <pubDate>Tue, 13 Feb 2018 13:42:49 -0500</pubDate>
+      
+      <guid>/academic/</guid>
+      <description>Published papers  Rohan Alexander and Zach Ward, 2018, &amp;lsquo;Age at Arrival and Assimilation During the Age of Mass Migration&#39;, The Journal of Economic History, 78(3), 904-937.
+Working paper version.  Working papers  Monica Alexander and Rohan Alexander, &amp;lsquo;The Effect of Elections and Prime Ministers on Discussion in the Australian Federal Parliament (1901—2018)&#39;. Rohan Alexander and Tim Hatton, &amp;lsquo;The Making of a Nation: Who Voted for Australian Federation?&#39;. Rohan Alexander and Patrick Leslie, &amp;lsquo;The Effect of State on Senators’ Speeches in the Australian Federal Parliament (1901–2018)&amp;rsquo; Rohan Alexander, Patrick Dumond, Lauren Kennedy, and Patrick Leslie, ‘Forecasting Parliamentary Elections’.</description>
+    </item>
+    
+    <item>
+      <title>Bookshelf</title>
+      <link>/bookshelf/</link>
+      <pubDate>Tue, 13 Feb 2018 13:42:49 -0500</pubDate>
+      
+      <guid>/bookshelf/</guid>
+      <description>Inspired by Patrick Collison&amp;rsquo;s version, this is an incomplete (so far) and unordered list of the books that I own. I&amp;rsquo;ve been a bit more liberal than Patrick and included books that I&amp;rsquo;ve read and would like to own (designated by &amp;ldquo;-&amp;quot;). If you have recommendations, then please get in touch. I usually only buy books that I like, but bolded books are ones I especially like.
+ -&amp;ldquo;A Little Life&amp;rdquo;, Hanya Yanighara.</description>
+    </item>
+    
+    <item>
+      <title>Brown bag</title>
+      <link>/brownbag/</link>
+      <pubDate>Tue, 13 Feb 2018 13:42:49 -0500</pubDate>
+      
+      <guid>/brownbag/</guid>
+      <description>An hour-long discussion about cleaning, preparing, and maintaining data in academia and industry. All welcome! If you would like to receive emails about the series please get in touch.
+Overview
+In any data science project a lot of time is spent on data cleaning, preparation, and maintenance, but these steps are rarely talked about, let alone written down. This means that there is a lot of reinvention and it can be difficult to know what best practice is.</description>
+    </item>
+    
+    <item>
+      <title>Other</title>
+      <link>/other/</link>
+      <pubDate>Tue, 13 Feb 2018 13:42:49 -0500</pubDate>
+      
+      <guid>/other/</guid>
+      <description>Professional experience Professional CV
+Grosvenor Public Sector Advisory Consultant, April 2017 &amp;ndash; February 2019
+I consulted at Grosvenor on a casual basis to complete a specific project for the European Commission relating to public procurement. This involved: identifying data sources; preparing for and supporting data acquisition; conducting data quality confirmation; helping with survey design and validation; and some minor managerial responsibilities.
+The Centre for International Economics Economist, January 2012 &amp;ndash; August 2013; August 2015 &amp;ndash; November 2015</description>
+    </item>
+    
+    <item>
+      <title>Teaching</title>
+      <link>/teaching/</link>
+      <pubDate>Tue, 13 Feb 2018 13:42:49 -0500</pubDate>
+      
+      <guid>/teaching/</guid>
+      <description>My teaching is informed not only by my time in academia, but also by my experience working at my own start-up and in government. My approach is best characterised as practical, research-based, and emphasising workflow.
+University of Toronto  Instructor, Experimental Design for Data Science, iSchool, Winter Term, 2020.  Course notes: https://www.tellingstorieswithdata.com/.    Australian National University  Tutor, Macroeconomics 3, Semester 2, 2017, evaluations Tutor, Microeconomics 3, Semester 1, 2017, evaluations Tutor, Behavioural Economics, Semester 2, 2015, evaluations Tutor, Business Economics, Semester 1, 2015, evaluations Tutor, Microeconomics 1, Semester 1, 2013, evaluations Tutor, Foundations of Economic and Financial Models, Semester 2, 2012  University of Queensland  Tutor, Microeconomic Policy, Semester 2, 2008 Tutor, Microeconomic Theory, Semester 1, 2008 Tutor, Introductory Microeconomics, Semester 2, 2007 Tutor, Introductory Microeconomics, Semester 1, 2007  Short courses and workshops   Instructor, Getting started with MRP</description>
+    </item>
+    
+    <item>
+      <title>Getting started with LaTeX</title>
+      <link>/blog/getting-started-with-latex/</link>
+      <pubDate>Thu, 14 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/getting-started-with-latex/</guid>
+      <description>Thank you to Janet Bradly and Maria Racionero for their support of this workshop. These notes are based on ones prepared by Zac Cranko and I for a presentation in 2015 and those that I put together for a 2016 presentation. Zac’s work is used with permission.
+Introduction LaTeX makes it easier to produce papers that look great, but it can be overwhelming at the start. These notes help you get up-and-running with LaTeX.</description>
+    </item>
+    
+    <item>
+      <title>Reproducing a Grattan Institute map</title>
+      <link>/blog/reproducing-a-grattan-map/</link>
+      <pubDate>Fri, 11 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/reproducing-a-grattan-map/</guid>
+      <description>Thank you to Monica for her helpful edits.
+Geoffrey Liu found an error in how I deal with the postcodes data that I haven’t fixed yet.
+Introduction The Grattan Institute is an Australian think tank that produces reports about public policy. Last week they released ‘Regional patterns of Australia’s economy and population’. That report looks into the differences between geographic areas across various economic and demographic variables. It includes interactive maps made using Carto.</description>
+    </item>
+    
+    <item>
+      <title>Getting started with Blogdown</title>
+      <link>/blog/getting-started-with-blogdown/</link>
+      <pubDate>Fri, 21 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/getting-started-with-blogdown/</guid>
+      <description>Thank you to Minhee Chae and Peter Gibbard for helpful comments.
+Introduction Blogdown is a package that allows you to make websites (not just blogs, notwithstanding its name) largely within R Studio. It builds on Hugo, which is a popular tool for making websites.
+Blogdown lets you freely and quickly get a website up-and-running. It is easy to add content from time-to-time. It integrates with R Markdown which lets you easily share your work.</description>
+    </item>
+    
+    <item>
+      <title>Mapping the 2016 Australian Election Polling Place Results</title>
+      <link>/blog/mapping-the-2016-australian-election/</link>
+      <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/mapping-the-2016-australian-election/</guid>
+      <description>The note that follows introduces Australia’s political system, and then details the process of downloading and merging first-preference votes by polling place, and then plotting it on an interactive map.
+Australia’s political system In 2016 Australia’s federal government was determined by the outcomes of elections in 150 divisions which each elected one member to the lower house. The Liberal/National Coalition won 76 seats which allowed it to form a majority government; while the Labor party won 69 seats to form the Opposition; the Greens and the Nick Xenophon Team each won one seat; and there were two Independent members (Andrew Wilkie and Cathy McGowan).</description>
+    </item>
+    
+    <item>
+      <title>Greitens Reports For Duty</title>
+      <link>/blog/greitens/</link>
+      <pubDate>Sat, 15 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/greitens/</guid>
+      <description>(Comment 27 March 2019. This has aged horribly! Not only was it written with a presumption that Clinton was going to win, but even though Greitens won he flamed out within 18 months having been accused of some very odd behaviour. Nonetheless, the visit to Missouri was fun, and I enjoyed putting this piece together.)
+Eric Greitens may be the Republican Übermensch. Rhodes Scholar, Navy SEAL officer, husband and father.</description>
+    </item>
+    
+    <item>
+      <title>Professional Amateurs</title>
+      <link>/blog/professional-amateurs/</link>
+      <pubDate>Thu, 08 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/professional-amateurs/</guid>
+      <description>Despite many unforced errors Hillary Clinton has won the Democratic nomination and polls suggest she will beat Donald Trump. But her campaign continues to make unforced errors. There was plenty of evidence of an amateur nature to what should be a professional campaign at a recent rally for Clinton’s running mate, Tim Kaine, in Grand Rapids, Michigan.
+The wait for Tim Kaine was around three hours. That’s not unusual. But it meant the campaign had three hours in which no one was able to walk away or claim they had somewhere else to be.</description>
+    </item>
+    
+    <item>
+      <title>Trump, Revisited</title>
+      <link>/blog/trump-revisited/</link>
+      <pubDate>Sun, 17 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/trump-revisited/</guid>
+      <description>(Comment 4 July 2017: Like much of my writing about Trump, the opinions here haven’t aged too well. Nonetheless, I learnt a lot from writing this and later from thinking about why I went wrong.)
+A few notes and photos from a Trump rally in Indiana earlier this week. The focus is on whether Trump ‘could’ win the election in November. In the interest of transparency, it’s worth acknowledging that I didn’t think Trump could win the Republican nomination.</description>
+    </item>
+    
+    <item>
+      <title>Broader Thinking Needed on the Australian Budget</title>
+      <link>/blog/broader-thinking-needed/</link>
+      <pubDate>Wed, 03 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/broader-thinking-needed/</guid>
+      <description>The Treasury Secretary, and many others, bemoan the wasted years of the mining boom. Most agree that Australia should have more to show for what was the most significant boom since Federation. But the boom is over. And a fixation on budget surpluses means that we are missing an opportunity to make up for it. Australia’s credit rating is a strength that we should take advantage of. The Commonwealth should be borrowing to fund infrastructure investment.</description>
+    </item>
+    
+    <item>
+      <title>Notes and Photos From Iowa</title>
+      <link>/blog/notes-and-photos-from-iowa/</link>
+      <pubDate>Thu, 14 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/notes-and-photos-from-iowa/</guid>
+      <description>Sincere thanks to Bec, Callam, Monica, and Owen for reading and improving these notes.
+Bernie Sanders seems quite reasonable for a revolutionary. An energetic man of 74, he spoke for an hour in Perry, Iowa, to a room of 300 from only a few lines of handwritten notes, and then fielded half an hour of questions. He does not have the same aura that surrounded, then, Senator Obama in his own Iowa battle with, then, Senator Clinton in 2008 say those who saw both.</description>
+    </item>
+    
+    <item>
+      <title>Prepare For Future Economic Crises Now</title>
+      <link>/blog/prepare-for-future-economic-crises-now/</link>
+      <pubDate>Mon, 31 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/prepare-for-future-economic-crises-now/</guid>
+      <description>Originally published in the Canberra Times.
+Few policymakers were prepared for the financial crisis of 2007-08. Until it hit, their focus was on more obvious threats to the economy, instead of such an unexpected event. Could this be because planning for unexpected economic events is not the explicit responsibility of any particular policy-maker? If so, this has to change.
+ Figure 1: Always better to buy a helmet before you fall off the bike.</description>
+    </item>
+    
+    <item>
+      <title>In Appreciation of Ronald Coase</title>
+      <link>/blog/in-appreciation-of-ronald-coase/</link>
+      <pubDate>Wed, 24 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/in-appreciation-of-ronald-coase/</guid>
+      <description>Ronald Coase, one of the most influential economists of the twentieth century, passed away in 2013 aged 102. Reading his papers today, I wonder whether he’d have become an economist if he were making that decision now.
+ Figure 1: Coase’s article about lighthouses is brilliant. Which economist could write a paper like that today? Photo by Monica Alexander.  Coase began his career by publishing ‘The Nature of the Firm’ in 1937.</description>
+    </item>
+    
+    <item>
+      <title>I&#39;ll Have What They&#39;re Having</title>
+      <link>/blog/bloomthat/</link>
+      <pubDate>Wed, 17 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/bloomthat/</guid>
+      <description>Some accuse the Rich White Males from San Francisco’s Bay Area of only making products for other Rich White Males. But that neglects the fact that what they want is sometimes also what the rest of us want.
+ Figure 1: If you’re rich even the San Francisco Bay can be your playground.  For instance, in the case of Facebook, Rich White Males wanted an easy way to communicate with their friends and family.</description>
+    </item>
+    
+    <item>
+      <title>The Human Equation: An Interview With George Zachary</title>
+      <link>/blog/2014-03-19-the-human-equation-an-interview-with-george-zachary/</link>
+      <pubDate>Wed, 19 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014-03-19-the-human-equation-an-interview-with-george-zachary/</guid>
+      <description>“Two bicyclists start twenty miles apart and head toward each other, each going at 10 mph. At the same time a fly that travels at 15 mph starts from the front wheel of the southbound bicycle and flies to the front wheel of the northbound one, then turns around and flies to the front wheel of the southbound one again, and continues in this manner till he is crushed between the two front wheels.</description>
+    </item>
+    
+    <item>
+      <title>Final Shot At Ending Industrial Disputes</title>
+      <link>/blog/2012-11-28-final-shot-at-ending-industrial-disputes/</link>
+      <pubDate>Wed, 28 Nov 2012 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2012-11-28-final-shot-at-ending-industrial-disputes/</guid>
+      <description>Written with Ben O’Neill and originally published in the Canberra Times.
+The industrial relations disputes that culminated in the shutdown of Qantas last year took more than nine months to make it through arbitration. Such lengthy delays have left many wondering if changes should be made to the processes that underpin this form of dispute resolution. The use of ‘final offer’ arbitration could be the small change that has a big effect, saving conflicted parties time, money and reputation.</description>
+    </item>
+    
+    <item>
+      <title>Tournaments Could Drive R&amp;D Effort</title>
+      <link>/blog/tournaments/</link>
+      <pubDate>Tue, 17 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/tournaments/</guid>
+      <description>Written with Andrew Barnes and originally published in the Australian Financial Review.
+The government should use tournaments to stimulate research and development in Australia. They have been largely overlooked since the Cutler Review of Innovation, but when structured properly, they encourage out-standing achievement and promote creative destruction.
+knitr::include_graphics(&amp;quot;DSCF4403.jpg&amp;quot;)  Figure 1: Tournaments bring out the best of us in sport, why not also R&amp;amp;D? Photo by Monica Alexander.  Creative destruction is a phrase made famous by the 20th-century economist Joseph Schumpeter.</description>
+    </item>
+    
+    <item>
+      <title>Plastic Policies</title>
+      <link>/blog/plastic-policies/</link>
+      <pubDate>Mon, 25 May 2009 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/plastic-policies/</guid>
+      <description>Written with Professor Flavio Menezes and originally published at Australian Policy Online.
+There is broad agreement that Australian plastic bag consumption should be reduced. To this end, recent South Australian legislation has banned certain types of plastic bags. But other states wishing to reduce their plastic bag consumption may find a tax rather than a ban the more appropriate policy instrument.
+In South Australia, one of the reasons for a ban rather than a tax was the belief that a tax would impose an additional cost on households.</description>
+    </item>
+    
+    <item>
+      <title>Home Buyers Will Be Hurt by Aid Plan</title>
+      <link>/blog/home-buyers-will-be-hurt-by-aid-plan/</link>
+      <pubDate>Thu, 08 May 2008 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/home-buyers-will-be-hurt-by-aid-plan/</guid>
+      <description>Originally published in the Australian Financial Review.
+The Government’s First Home Saver Accounts policy, announced during the last federal election, is a promise that should never have been made. It will place upward pressure upon inflation and increase the potential for domestic financial turbulence. It will be the individuals that the policy is designed to help (young Australians with a still-insecure financial foundation) that will be most hurt in the long-run.</description>
+    </item>
+    
+  </channel>
+</rss>

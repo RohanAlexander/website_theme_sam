@@ -1,0 +1,55 @@
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
+baseurl                  = "/"           # Your domain name
+languageCode             = "en-ca"
+defaultContentLanguage   = "en"
+isMultilingual           = false
+title                    = "Rohan Alexander"
+theme                    = "hugo-theme-sam"
+pygmentsStyle            = "monokai"                        # https://help.farbox.com/pygments.html
+pygmentsCodefences       = true
+# googleAnalytics        = ""                               # Tracking code, eg. "UA-111111111-1"
+
+[params]
+    dateform             = "2006 January 2"
+    dateformfull         = "2 Jan 2006 15:04:05 EST"
+    favicon              = "sam.ico"
+    homepage             = "home"                           # What to call the home page link
+    footerText           = "Built with Hugo, Blogdown and the 'Call me Sam' theme."
+
+# Metadata for Open Graph and Twitter
+    description          = "Rohan Alexander's personal website."               # Max 160 characters show in search results
+    images               = ["tn.png"]                       # Image that shows on Twitter cards and Open Graph links to the site
+    title                = "Rohan Alexander"
+
+[[params.mainMenu]]
+    link = "about"
+    text = "about"
+
+[[params.mainMenu]]
+    link = "academic"
+    text = "academic"
+
+[[params.mainMenu]]
+    link = "blog"
+    text = "blog"
+
+[[params.mainMenu]]
+    link = "bookshelf"
+    text = "bookshelf"
+
+[[params.mainMenu]]
+    link = "brownbag"
+    text = "brownbag"
+
+[[params.mainMenu]]
+    link = "other"
+    text = "other"
+    
+[[params.mainMenu]]
+    link = "teaching"
+    text = "teaching"
+    
+
+[imaging]
+    quality = 75

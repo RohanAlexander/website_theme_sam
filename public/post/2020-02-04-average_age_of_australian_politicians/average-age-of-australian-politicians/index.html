@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Rohan Alexander&#39;s personal website.">
+<title>
+    The average age of politicians in the Australian Federal Parliament - Rohan Alexander
+</title>
+
+
+
+<link rel="shortcut icon" href="/sam.ico">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.4321edce0de245f4b1d32680d89ac669940fe5dec17e1791c721d9a0954987b4.css" integrity="sha256-QyHtzg3iRfSx0yaA2JrGaZQP5d7BfheRxyHZoJVJh7Q=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/tn.png"/>
+
+<meta name="twitter:title" content="The average age of politicians in the Australian Federal Parliament"/>
+<meta name="twitter:description" content="Overview The average age of politicians in a parliament may have implications for the types of issues that are emphasised and the policies that are put in place. In this note, I examine the average age of Australian politicians in the Senate and the House of Representatives. In general the Senate tends to be slightly older than the House of Representatives. I find a gradual increase in the average age from Federation through to the 1940s."/>
+
+<meta property="og:title" content="The average age of politicians in the Australian Federal Parliament" />
+<meta property="og:description" content="Overview The average age of politicians in a parliament may have implications for the types of issues that are emphasised and the policies that are put in place. In this note, I examine the average age of Australian politicians in the Senate and the House of Representatives. In general the Senate tends to be slightly older than the House of Representatives. I find a gradual increase in the average age from Federation through to the 1940s." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/2020-02-04-average_age_of_australian_politicians/average-age-of-australian-politicians/" />
+<meta property="og:image" content="/tn.png"/>
+<meta property="article:published_time" content="2020-02-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-08T00:00:00+00:00" /><meta property="og:site_name" content="Rohan Alexander" />
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        The average age of politicians in the Australian Federal Parliament
+        
+    </title>
+</head>
+
+<body>
+    
+    
+    <header class="wrap flex-container">
+        <h1>The average age of politicians in the Australian Federal Parliament</h1>
+    </header>
+    
+    <main class="wrap">
+        
+        <article role="article" class="flex-container">
+
+
+<div id="overview" class="section level1">
+<h1>Overview</h1>
+<p>The average age of politicians in a parliament may have implications for the types of issues that are emphasised and the policies that are put in place. In this note, I examine the average age of Australian politicians in the Senate and the House of Representatives. In general the Senate tends to be slightly older than the House of Representatives. I find a gradual increase in the average age from Federation through to the 1940s. In 1949 there was an expansion of the parliament and the average age noticeably declined. After a period of relative stability in the 1950s and 1960s, there was another noticeable decrease in the 1970s, followed by a gradual aging.</p>
+</div>
+<div id="dataset" class="section level1">
+<h1>Dataset</h1>
+<p>The dataset that I used in this note was primarily collected from records from the Australian Parliamentary Library, Wikipedia, and the Australian Dictionary of Biography. The dataset comprises biographical, political, and other information about every person elected to either the House of Representatives or the Senate. The dataset is available as an R package: AustralianPoliticians (Alexander, 2019). R users can get the package using the devtools package (Wickham, Hester, and Chang, 2019). Non-R users can download the R datafiles from GitHub: <a href="https://github.com/RohanAlexander/AustralianPoliticians/tree/master/data" class="uri">https://github.com/RohanAlexander/AustralianPoliticians/tree/master/data</a>.</p>
+<pre class="r"><code># install.packages(&quot;devtools&quot;)
+# devtools::install_github(&quot;RohanAlexander/AustralianPoliticians&quot;)
+library(AustralianPoliticians)
+library(lubridate)
+library(tidyverse)</code></pre>
+<p>The other packages that are required for the analysis are lubridate (Grolemund, Wickham, 2011), the tidyverse (Wickham, et al., 2019). Additionally this note draws on the knitr (Xie, 2020; Xie, 2015; and Xie 2014) and distill (Allaire, Iannone and Xie, 2018) packages.</p>
+<aside>
+Monica Alexander uses an early version of this dataset to look at the average age of death of Australian politicians: <a href="https://www.monicaalexander.com/posts/2019-08-09-australian_politicians/" class="uri">https://www.monicaalexander.com/posts/2019-08-09-australian_politicians/</a>
+</aside>
+<p>There are 1,776 politicians in the package, with 1,203 having sat in the House of Representatives, which is the lower house, and 623 having sat in the Senate, which is the upper house. There is some overlap because there are people who sat in both houses.</p>
+<aside>
+There are a handful of politicians who sat in the parliament, but were never elected - when the first parliament sat, there were initially some who were just appointed, and never went on to seek election. Conversely, there is one politician - Heather Hill - who was elected, but whose election was reversed before she could take her seat. While she never served in either house, she is included in the dataset for purposes of being able to link it to the elections dataset.
+</aside>
+<p>The AustralianPoliticians package contains a number of datasets that are related by the <code>uniqueID</code> variable. This note requires the main dataset - ‘all’ - as well as two supporting datasets that provide more detailed information about the members - ‘by_division_mps’ - and the senators - ‘by_state_senators’.</p>
+<pre class="r"><code># Get the members and the dates they were in the house
+australian_mps &lt;- 
+  AustralianPoliticians::all %&gt;% 
+  filter(member == 1) %&gt;% 
+  left_join(AustralianPoliticians::by_division_mps, 
+            by = &quot;uniqueID&quot;) %&gt;% 
+  select(uniqueID, mpFrom, mpTo) %&gt;% 
+  mutate(house = &quot;reps&quot;) %&gt;% 
+  rename(from = mpFrom,
+         to = mpTo)
+
+# Get the senators and the dates they were in the senate
+australian_senators &lt;- 
+  AustralianPoliticians::all %&gt;% 
+  filter(senator == 1) %&gt;% 
+  left_join(AustralianPoliticians::by_state_senators, 
+            by = &quot;uniqueID&quot;) %&gt;% 
+  select(uniqueID, senatorFrom, senatorTo) %&gt;% 
+  mutate(house = &quot;senate&quot;) %&gt;% 
+  rename(from = senatorFrom,
+         to = senatorTo)
+
+australian_politicians &lt;- rbind(australian_mps, australian_senators)
+rm(australian_senators, australian_mps)
+
+# Change the names so that they print nicely in graphs/tables
+australian_politicians &lt;- 
+  australian_politicians %&gt;% 
+  mutate(house =
+           case_when(
+             house == &quot;senate&quot; ~ &quot;Senate&quot;,
+             house == &quot;reps&quot; ~ &quot;HoR&quot;,
+             TRUE ~ &quot;OH NO&quot;)
+         )
+head(australian_politicians)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##   uniqueID   from       to         house
+##   &lt;chr&gt;      &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;
+## 1 Abbott1869 1913-05-31 1919-11-03 HoR  
+## 2 Abbott1886 1925-11-14 1929-10-12 HoR  
+## 3 Abbott1886 1931-12-19 1937-03-28 HoR  
+## 4 Abbott1891 1940-09-21 1949-10-31 HoR  
+## 5 Abbott1957 1994-03-26 2019-05-18 HoR  
+## 6 Abel1939   1975-12-13 1977-11-10 HoR</code></pre>
+<p>For each day, I would like to know the average age of everyone sitting in the parliament. There are a variety of ways to do this, but one is to create a dataset of two columns: <code>date</code> and <code>uniqueID.</code> Both of these are repeated, so that for every <code>date</code> there is every <code>uniqueID.</code></p>
+<pre class="r"><code>start_date &lt;- ymd(&quot;1901-01-01&quot;)
+end_date &lt;- ymd(&quot;2019-12-31&quot;)
+
+politicians_by_date &lt;- tibble(
+  uniqueID = rep(australian_politicians$uniqueID %&gt;% unique(),
+                 end_date - start_date + 1),
+  date = rep(seq.Date(start_date, end_date, by = &quot;day&quot;),
+             australian_politicians$uniqueID %&gt;% unique() %&gt;% length()
+             )
+  )
+
+head(politicians_by_date)</code></pre>
+<pre><code>## # A tibble: 6 x 2
+##   uniqueID   date      
+##   &lt;chr&gt;      &lt;date&gt;    
+## 1 Abbott1869 1901-01-01
+## 2 Abbott1886 1901-01-02
+## 3 Abbott1891 1901-01-03
+## 4 Abbott1957 1901-01-04
+## 5 Abel1939   1901-01-05
+## 6 Adams1951  1901-01-06</code></pre>
+<p>Although the dataset is long at this point, it will be quite sparse as there are many combinations of <code>date</code> and <code>uniqueID</code> that are irrelevant. In the next step I check if each <code>uniqueID</code> was in parliament on each date, and filter away those that were not.</p>
+<pre class="r"><code># Add an explicit end date to the uniqueIDs that are still in parliament and
+# hence have NA in the date they left parliament.
+australian_politicians$to[is.na(australian_politicians$to)] &lt;- end_date
+
+politicians_by_date &lt;- 
+  politicians_by_date %&gt;% 
+  left_join(australian_politicians,
+            by = &quot;uniqueID&quot;
+            )
+
+politicians_by_date &lt;- 
+  politicians_by_date %&gt;% 
+  mutate(in_parliament_interval = interval(from, to),
+         in_parliament_at_date = if_else(date %within% in_parliament_interval, 
+                                         1, 
+                                         0)
+         ) %&gt;% 
+  filter(in_parliament_at_date == 1) %&gt;% 
+  select(-in_parliament_interval,
+         -in_parliament_at_date,
+         -from,
+         -to)
+
+head(politicians_by_date)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   uniqueID     date       house
+##   &lt;chr&gt;        &lt;date&gt;     &lt;chr&gt;
+## 1 Bonython1848 1901-04-13 HoR  
+## 2 Braddon1829  1901-04-25 HoR  
+## 3 Brown1861    1901-05-11 HoR  
+## 4 Cameron1851  1901-06-13 HoR  
+## 5 Chanter1845  1901-07-13 HoR  
+## 6 Chapman1864  1901-07-14 HoR</code></pre>
+<p>Now that the dataset is a bit more tractable, I add the birthday of every uniqueID and then calculate their age, in days, for every date.</p>
+<pre class="r"><code>politicians_by_house_and_birthday &lt;- 
+  AustralianPoliticians::all %&gt;% 
+  select(uniqueID, birthDate, member, senator) %&gt;% 
+  pivot_longer(cols = c(member, senator), 
+               names_to = &quot;house&quot;, 
+               values_to = &quot;in_it&quot;
+               ) %&gt;% 
+  filter(in_it == 1) %&gt;% 
+  select(-in_it) %&gt;% 
+  mutate(house = 
+           case_when(
+             house == &quot;senator&quot; ~ &quot;Senate&quot;,
+             house == &quot;member&quot; ~ &quot;HoR&quot;,
+             TRUE ~ &quot;OH NO&quot;)
+         )
+
+# Check if the catch-all has been invoked
+# politicians_by_house_and_birthday[politicians_by_house_and_birthday$house == &quot;OH NO&quot;,]
+
+politicians_by_date &lt;- 
+  politicians_by_date %&gt;% 
+  left_join(politicians_by_house_and_birthday,
+            by = c(&quot;uniqueID&quot;, &quot;house&quot;)
+            )
+
+politicians_by_date &lt;- 
+  politicians_by_date %&gt;% 
+  filter(!is.na(birthDate)) %&gt;% # I can&#39;t find Trish Wortley&#39;s birthday and also
+  # we don&#39;t know the birthdates of some of the politicians from around Federation.
+  mutate(age_as_at_that_date = date - birthDate)
+
+head(politicians_by_date)</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   uniqueID    date       house birthDate  age_as_at_that_da…
+##   &lt;chr&gt;       &lt;date&gt;     &lt;chr&gt; &lt;date&gt;     &lt;drtn&gt;            
+## 1 Bonython18… 1901-04-13 HoR   1848-10-15 19172 days        
+## 2 Braddon1829 1901-04-25 HoR   1829-06-11 26250 days        
+## 3 Brown1861   1901-05-11 HoR   1861-10-06 14461 days        
+## 4 Cameron1851 1901-06-13 HoR   1851-11-03 18119 days        
+## 5 Chanter1845 1901-07-13 HoR   1845-02-11 20605 days        
+## 6 Chapman1864 1901-07-14 HoR   1864-07-10 13517 days</code></pre>
+<p>I need to work out the average age for each day. There are some politicians for whom we do not know their exact birthdate. Those have been removed in this calculation.</p>
+<pre class="r"><code>average_age_by_date &lt;- 
+  politicians_by_date %&gt;%
+  mutate(age_as_at_that_date = age_as_at_that_date / ddays(1)) %&gt;% # This just 
+  # converts it into a days count
+  group_by(date, house) %&gt;% 
+  summarise(average_age = median(age_as_at_that_date, na.rm = TRUE)) 
+
+average_age_by_date &lt;- 
+  average_age_by_date %&gt;% 
+  mutate(average_age_in_years = average_age/365) 
+
+head(average_age_by_date)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+## # Groups:   date [3]
+##   date       house  average_age average_age_in_years
+##   &lt;date&gt;     &lt;chr&gt;        &lt;dbl&gt;                &lt;dbl&gt;
+## 1 1901-03-29 HoR         16765                  45.9
+## 2 1901-03-29 Senate      16086.                 44.1
+## 3 1901-03-30 HoR         17235                  47.2
+## 4 1901-03-30 Senate      18878.                 51.7
+## 5 1901-03-31 HoR         17236                  47.2
+## 6 1901-03-31 Senate      18878.                 51.7</code></pre>
+<p>I’ll do the same thing except to work out the average by election period.</p>
+<pre class="r"><code>average_age_by_election &lt;- 
+  politicians_by_date %&gt;%
+  left_join(AustralianElections::elections %&gt;% 
+              rename(date = electionDate) %&gt;% 
+              select(-comment) %&gt;% 
+              mutate(house = &quot;HoR&quot;),
+            by = c(&quot;date&quot;, &quot;house&quot;)) %&gt;% 
+  ungroup() %&gt;% 
+  filter(house == &quot;HoR&quot;) %&gt;% 
+  arrange(date, uniqueID) %&gt;% 
+  mutate(is_election = if_else(is.na(electionWinner), 0, 1),
+         is_election = if_else(is_election == lag(is_election, default = 0), 0, is_election),
+         election_counter = cumsum(is_election))
+
+average_age_by_election &lt;- 
+  average_age_by_election %&gt;%
+  ungroup() %&gt;% 
+  mutate(age_as_at_that_date = age_as_at_that_date / ddays(1)) %&gt;% # This just 
+  # converts it into a days count
+  group_by(election_counter) %&gt;% 
+  summarise(average_age = median(age_as_at_that_date, na.rm = TRUE),
+            first_date = min(date)) %&gt;% 
+  mutate(average_age_in_years = average_age/365) %&gt;% 
+  ungroup() </code></pre>
+<p><strong>I THINK WE CAN DELETE THIS</strong></p>
+<p>Finally, I’ll just do some minor tidying.</p>
+<pre class="r"><code># average_age_by_date &lt;-
+#   average_age_by_date %&gt;%
+#   
+
+# average_age_by_date &lt;- 
+#   average_age_by_date %&gt;% 
+#   left_join(AustralianElections::elections %&gt;% 
+#               rename(date = electionDate) %&gt;% 
+#               select(-comment) %&gt;% 
+#               mutate(house = &quot;reps&quot;),
+#             by = c(&quot;date&quot;, &quot;house&quot;)) %&gt;% 
+#   ungroup() %&gt;% 
+#   mutate(is_election = if_else(is.na(electionWinner), 0, 1),
+#          election_counter = cumsum(is_election))</code></pre>
+</div>
+<div id="results" class="section level1">
+<h1>Results</h1>
+<div id="over-time" class="section level2">
+<h2>Over time</h2>
+<p>There are considerable changes over time (Figure <a href="#fig:maingraph">1</a>)</p>
+<pre class="r"><code>average_age_by_date %&gt;% 
+  ggplot(aes(x = date, y = average_age_in_years, colour = house)) +
+  geom_point() +
+  labs(x = &quot;Date&quot;,
+       y = &quot;Average age (years)&quot;,
+       color = &quot;House&quot;) +
+  theme_minimal() +
+  scale_color_brewer(palette = &quot;Set1&quot;)</code></pre>
+<div class="figure"><span id="fig:maingraph"></span>
+<img src="/post/2020-02-04-average_age_of_australian_politicians/average_age_of_parliaments_files/figure-html/maingraph-1.png" alt="Average age in the Australian Federal Parliament" width="672" />
+<p class="caption">
+Figure 1: Average age in the Australian Federal Parliament
+</p>
+</div>
+</div>
+<div id="group-by-election-period" class="section level2">
+<h2>Group by election period</h2>
+<p>We can also look at a summary of the results, averaged across days, on the basis of each election period (Table <a href="#tab:maintable">1</a>).</p>
+<pre class="r"><code>average_age_by_election %&gt;% 
+  select(-average_age) %&gt;% 
+  rename(`Election number` = election_counter,
+         `Period begins` = first_date,
+         `Average age (years)` = average_age_in_years) %&gt;% 
+  kable(caption = &quot;Average age by for each period between lower house elections&quot;,
+        digits = 1,
+        booktabs = TRUE)</code></pre>
+<table>
+<caption><span id="tab:maintable">Table 1: </span>Average age by for each period between lower house elections</caption>
+<thead>
+<tr class="header">
+<th align="right">Election number</th>
+<th align="left">Period begins</th>
+<th align="right">Average age (years)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">1901-03-29</td>
+<td align="right">48.2</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">1903-12-16</td>
+<td align="right">48.8</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">1906-12-12</td>
+<td align="right">49.0</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">1910-04-13</td>
+<td align="right">50.1</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">1913-05-31</td>
+<td align="right">49.8</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">1914-09-05</td>
+<td align="right">51.9</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="left">1917-05-05</td>
+<td align="right">53.0</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">1919-12-13</td>
+<td align="right">52.2</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="left">1922-12-16</td>
+<td align="right">51.7</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="left">1925-11-14</td>
+<td align="right">52.3</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="left">1928-11-17</td>
+<td align="right">50.9</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="left">1929-10-12</td>
+<td align="right">49.4</td>
+</tr>
+<tr class="odd">
+<td align="right">13</td>
+<td align="left">1931-12-19</td>
+<td align="right">52.3</td>
+</tr>
+<tr class="even">
+<td align="right">14</td>
+<td align="left">1934-09-15</td>
+<td align="right">51.1</td>
+</tr>
+<tr class="odd">
+<td align="right">15</td>
+<td align="left">1937-10-23</td>
+<td align="right">51.9</td>
+</tr>
+<tr class="even">
+<td align="right">16</td>
+<td align="left">1940-09-21</td>
+<td align="right">52.2</td>
+</tr>
+<tr class="odd">
+<td align="right">17</td>
+<td align="left">1943-08-21</td>
+<td align="right">51.6</td>
+</tr>
+<tr class="even">
+<td align="right">18</td>
+<td align="left">1946-09-28</td>
+<td align="right">53.3</td>
+</tr>
+<tr class="odd">
+<td align="right">19</td>
+<td align="left">1949-12-10</td>
+<td align="right">50.9</td>
+</tr>
+<tr class="even">
+<td align="right">20</td>
+<td align="left">1951-04-28</td>
+<td align="right">52.4</td>
+</tr>
+<tr class="odd">
+<td align="right">21</td>
+<td align="left">1954-05-29</td>
+<td align="right">53.7</td>
+</tr>
+<tr class="even">
+<td align="right">22</td>
+<td align="left">1955-12-10</td>
+<td align="right">52.4</td>
+</tr>
+<tr class="odd">
+<td align="right">23</td>
+<td align="left">1958-11-22</td>
+<td align="right">52.5</td>
+</tr>
+<tr class="even">
+<td align="right">24</td>
+<td align="left">1961-12-09</td>
+<td align="right">53.5</td>
+</tr>
+<tr class="odd">
+<td align="right">25</td>
+<td align="left">1963-11-30</td>
+<td align="right">53.5</td>
+</tr>
+<tr class="even">
+<td align="right">26</td>
+<td align="left">1966-11-26</td>
+<td align="right">52.5</td>
+</tr>
+<tr class="odd">
+<td align="right">27</td>
+<td align="left">1969-10-25</td>
+<td align="right">51.3</td>
+</tr>
+<tr class="even">
+<td align="right">28</td>
+<td align="left">1972-12-02</td>
+<td align="right">49.5</td>
+</tr>
+<tr class="odd">
+<td align="right">29</td>
+<td align="left">1974-05-18</td>
+<td align="right">48.6</td>
+</tr>
+<tr class="even">
+<td align="right">30</td>
+<td align="left">1975-12-13</td>
+<td align="right">47.1</td>
+</tr>
+<tr class="odd">
+<td align="right">31</td>
+<td align="left">1977-12-10</td>
+<td align="right">47.3</td>
+</tr>
+<tr class="even">
+<td align="right">32</td>
+<td align="left">1980-10-18</td>
+<td align="right">48.3</td>
+</tr>
+<tr class="odd">
+<td align="right">33</td>
+<td align="left">1983-03-05</td>
+<td align="right">47.7</td>
+</tr>
+<tr class="even">
+<td align="right">34</td>
+<td align="left">1984-12-01</td>
+<td align="right">48.2</td>
+</tr>
+<tr class="odd">
+<td align="right">35</td>
+<td align="left">1987-07-11</td>
+<td align="right">49.4</td>
+</tr>
+<tr class="even">
+<td align="right">36</td>
+<td align="left">1990-03-24</td>
+<td align="right">48.5</td>
+</tr>
+<tr class="odd">
+<td align="right">37</td>
+<td align="left">1993-03-13</td>
+<td align="right">48.9</td>
+</tr>
+<tr class="even">
+<td align="right">38</td>
+<td align="left">1996-03-02</td>
+<td align="right">48.9</td>
+</tr>
+<tr class="odd">
+<td align="right">39</td>
+<td align="left">1998-10-03</td>
+<td align="right">49.7</td>
+</tr>
+<tr class="even">
+<td align="right">40</td>
+<td align="left">2001-11-10</td>
+<td align="right">50.7</td>
+</tr>
+<tr class="odd">
+<td align="right">41</td>
+<td align="left">2004-10-09</td>
+<td align="right">51.7</td>
+</tr>
+<tr class="even">
+<td align="right">42</td>
+<td align="left">2007-11-24</td>
+<td align="right">51.2</td>
+</tr>
+<tr class="odd">
+<td align="right">43</td>
+<td align="left">2010-08-21</td>
+<td align="right">51.5</td>
+</tr>
+<tr class="even">
+<td align="right">44</td>
+<td align="left">2013-09-07</td>
+<td align="right">50.0</td>
+</tr>
+<tr class="odd">
+<td align="right">45</td>
+<td align="left">2016-07-02</td>
+<td align="right">50.2</td>
+</tr>
+<tr class="even">
+<td align="right">46</td>
+<td align="left">2019-05-18</td>
+<td align="right">51.1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="compare-with-average-age" class="section level2">
+<h2>Compare with average age</h2>
+<p>To get a sense of whether the parliament is unusual we need know what is happening the broader population over this time. Fortunately I know someone who is fairly handy when it comes to demography who can help.</p>
+<p>Although it’s going to average over elections, which we’ve seen is a big source of variation, we can create an average age for each year, and then compare that against data from the Australian Bureau of Statistics (ABS). The ABS provides an estimate of historical population statistics in 3105.0.65.001 - Australian Historical Population Statistics, 2016, which was released in 2019. I want the second data cube - 2 - Population Age and Sex Structure - and within that I want Table 2.18 - Median age by sex, states and territories, 30 June, 1861 onwards.</p>
+<pre class="r"><code>library(readxl)
+library(janitor)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;janitor&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     chisq.test, fisher.test</code></pre>
+<pre class="r"><code>ABS_data &lt;- read_excel(&quot;3105065001ds0002_2019.xls&quot;, 
+                       sheet = &quot;Table 2.18&quot;,
+                       skip = 4) %&gt;%
+  janitor::clean_names() %&gt;% 
+  rename(area_and_type = x1,) %&gt;% 
+  select(-x1861, -x1870, -x1871, -x1881, -x1891)</code></pre>
+<pre><code>## New names:
+## * `` -&gt; ...1</code></pre>
+<pre class="r"><code>ABS_data &lt;- 
+  ABS_data %&gt;% 
+  mutate(type = ifelse(area_and_type %in% c(&quot;Males&quot;, &quot;Females&quot;, &quot;Persons&quot;), area_and_type, NA),
+         area_and_type = ifelse(is.na(type), area_and_type, NA)) %&gt;% 
+  select(area_and_type, type, everything()) %&gt;% 
+  fill(area_and_type, .direction = &quot;down&quot;) %&gt;% 
+  mutate(area_and_type = str_remove(area_and_type, &quot;\\(f\\)\\(g\\)&quot;))
+
+ABS_data &lt;- 
+  ABS_data %&gt;%  
+  filter(area_and_type == &quot;Australia&quot;,
+         type == &quot;Persons&quot;)
+
+ABS_data &lt;- 
+  ABS_data %&gt;%
+  pivot_longer(cols = starts_with(&quot;x&quot;),
+               names_to = &quot;year&quot;,
+               values_to = &quot;median&quot;) %&gt;% 
+  mutate(year = str_remove(year, &quot;x&quot;),
+         year = as.integer(year)) %&gt;%
+  rename(area = area_and_type)</code></pre>
+<pre class="r"><code>average_age_by_year &lt;- 
+  politicians_by_date %&gt;%
+  ungroup() %&gt;% 
+  mutate(year = year(date)) %&gt;% 
+  mutate(age_as_at_that_date = age_as_at_that_date / ddays(1)) %&gt;% # This just 
+  # converts it into a days count
+  group_by(year) %&gt;% 
+  summarise(average_age = median(age_as_at_that_date, na.rm = TRUE)) %&gt;% 
+  mutate(average_age_in_years = average_age/365) %&gt;% 
+  ungroup() </code></pre>
+<pre class="r"><code>average_age_by_year %&gt;% 
+  left_join(ABS_data, by = &quot;year&quot;) %&gt;% 
+  select(year, average_age_in_years, median) %&gt;% 
+  rename(Politicians = average_age_in_years,
+         Overall = median) %&gt;% 
+  pivot_longer(cols = c(Politicians, Overall), 
+               names_to = &quot;population&quot;,
+               values_to = &quot;median&quot;) %&gt;% 
+  ggplot(aes(x = year, y = median, color = population)) +
+  geom_point() +
+  # geom_smooth() +
+  theme_classic() +
+  scale_color_brewer(palette = &quot;Set1&quot;) +
+  labs(x = &quot;Year&quot;,
+         y = &quot;Median age (years)&quot;,
+         color = &quot;Population&quot;)</code></pre>
+<pre><code>## Warning: Removed 21 rows containing missing values
+## (geom_point).</code></pre>
+<p><img src="/post/2020-02-04-average_age_of_australian_politicians/average_age_of_parliaments_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Try put politician age on x axis and the population age on teh y axis. if they were the same then we expect to be on the 45 degree line.</p>
+</div>
+</div>
+<div id="discussion" class="section level1">
+<h1>Discussion</h1>
+<div id="weaknesses-and-next-steps" class="section level2">
+<h2>Weaknesses and next steps</h2>
+<p>In general, it would be worthwhile trying to model this.</p>
+</div>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<ul>
+<li>Alexander, Rohan (2019). AustralianPoliticians: Provides Datasets About Australian Politicians. R package version 0.0.0.9000. <a href="https://github.com/RohanAlexander/AustralianPoliticians" class="uri">https://github.com/RohanAlexander/AustralianPoliticians</a>.</li>
+<li>Allaire, JJ, Rich Iannone and Yihui Xie (2018). radix: ‘R Markdown’ Format for Scientific and Technical Writing. R package version 0.6. <a href="https://CRAN.R-project.org/package=radix" class="uri">https://CRAN.R-project.org/package=radix</a>.</li>
+<li>Grolemund, Garrett, Hadley Wickham (2011). Dates and Times Made Easy with lubridate. Journal of Statistical Software, 40(3), 1-25. URL <a href="http://www.jstatsoft.org/v40/i03/" class="uri">http://www.jstatsoft.org/v40/i03/</a>.</li>
+<li>Wickham, Hadley, et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686, <a href="https://doi.org/10.21105/joss.01686" class="uri">https://doi.org/10.21105/joss.01686</a>.</li>
+<li>Wickham, Hadley, Jim Hester and Winston Chang (2019). devtools: Tools to Make Developing R Packages Easier. R package version 2.2.1. <a href="https://CRAN.R-project.org/package=devtools" class="uri">https://CRAN.R-project.org/package=devtools</a>.</li>
+<li>Xie, Yihui (2020). knitr: A General-Purpose Package for Dynamic Report Generation in R. R package version 1.27.</li>
+<li>Xie, Yihui (2015) Dynamic Documents with R and knitr. 2nd edition. Chapman and Hall/CRC. ISBN 978-1498716963.</li>
+<li>Xie, Yihui (2014) knitr: A Comprehensive Tool for Reproducible Research in R. In Victoria Stodden, Friedrich Leisch and Roger D. Peng, editors, Implementing Reproducible Computational Research. Chapman and Hall/CRC. ISBN 978-1466561595.</li>
+</ul>
+</div>
+<div id="acknowledgements" class="section level1">
+<h1>Acknowledgements</h1>
+<p>Thanks very much to Ben Readshaw for motivating this note, and to Monica Alexander for her thoughtful comments.</p>
+</div>
+</article>
+        
+
+        
+        
+        <nav role="navigation" class="flex-container bottom-menu">
+            
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/about">about</a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/academic">academic</a>
+        
+            &#183; 
+            <a href="/post">blog</a>
+        
+            &#183; 
+            <a href="/bookshelf">bookshelf</a>
+        
+            &#183; 
+            <a href="/brownbag">brownbag</a>
+        
+    
+    &#183; 
+    <a href="/">
+        home
+    </a>
+
+</p>
+        </nav>
+        
+        
+    </main>
+    
+    <footer class="flex-container footer">Built with Hugo, Blogdown and the &lsquo;Call me Sam&rsquo; theme.</footer>
+    
+    
+</body>
+
+</html>

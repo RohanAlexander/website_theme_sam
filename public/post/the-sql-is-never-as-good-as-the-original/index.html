@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Rohan Alexander&#39;s personal website.">
+<title>
+    The SQL is never as good as the original - Rohan Alexander
+</title>
+
+
+
+<link rel="shortcut icon" href="/sam.ico">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.4321edce0de245f4b1d32680d89ac669940fe5dec17e1791c721d9a0954987b4.css" integrity="sha256-QyHtzg3iRfSx0yaA2JrGaZQP5d7BfheRxyHZoJVJh7Q=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/tn.png"/>
+
+<meta name="twitter:title" content="The SQL is never as good as the original"/>
+<meta name="twitter:description" content="Thanks to Monica for the title.
+Introduction SQL is a popular way of working with data. Advanced users probably do a lot with it alone, but even just having a working knowledge of SQL has increased the number of datasets that I can get data from to then analyse with other tools such as R or Python. You can use SQL within RStudio if you want. The following are a few notes to help future-Rohan when he needs to use SQL."/>
+
+<meta property="og:title" content="The SQL is never as good as the original" />
+<meta property="og:description" content="Thanks to Monica for the title.
+Introduction SQL is a popular way of working with data. Advanced users probably do a lot with it alone, but even just having a working knowledge of SQL has increased the number of datasets that I can get data from to then analyse with other tools such as R or Python. You can use SQL within RStudio if you want. The following are a few notes to help future-Rohan when he needs to use SQL." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/the-sql-is-never-as-good-as-the-original/" />
+<meta property="og:image" content="/tn.png"/>
+<meta property="article:published_time" content="2018-07-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-07-28T00:00:00+00:00" /><meta property="og:site_name" content="Rohan Alexander" />
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        The SQL is never as good as the original
+        
+    </title>
+</head>
+
+<body>
+    
+    
+    <header class="wrap flex-container">
+        <h1>The SQL is never as good as the original</h1>
+    </header>
+    
+    <main class="wrap">
+        
+        <article role="article" class="flex-container"><p><em>Thanks to Monica for the title.</em></p>
+<h1 id="introduction">Introduction</h1>
+<p>SQL is a popular way of working with data. Advanced users probably do a lot with it alone, but even just having a working knowledge of SQL has increased the number of datasets that I can get data from to then analyse with other tools such as R or Python. You can use SQL within RStudio if you want. The following are a few notes to help future-Rohan when he needs to use SQL. A worked example with a sample of the Hansard data will be included in a future post.</p>
+<p><img src="https://imgs.xkcd.com/comics/query.png" alt=""></p>
+<p>SQL is fairly straightforward if you&rsquo;ve used mutate, filter and join in the R tidyverse as the concepts (and sometimes even the verb) are the same. In that case, half the battle is getting used to the terminology, and the other half is getting on top of the order of operations because SQL can be a tad pedantic.</p>
+<p>SQL (&ldquo;see-quell&rdquo; or &ldquo;S.Q.L.&rdquo; - both camps seem fairly insistent on their way&hellip;) is used with relational databases. A relational database is just a collection of at least one table, and a table is just some data organized into rows and columns. If there&rsquo;s more than one table in the database, then there should be some column that links them. Using it feels a bit like HTML/CSS in terms of being halfway between markup and programming. One fun aspect is that line spaces mean nothing: include them or don&rsquo;t, but always end a SQL command in a semicolon;</p>
+<h1 id="creating-a-table">Creating a table</h1>
+<p>Create an empty table of three columns of type: int, text, int:</p>
+<pre><code class="language-{sql," data-lang="{sql,">CREATE TABLE table_name (
+  column1 INTEGER,
+  column2 TEXT,
+  column3 INTEGER
+);
+</code></pre><p>Add a row of data:</p>
+<pre><code class="language-{sql," data-lang="{sql,">INSERT INTO table_name (column1, column2, column3)
+  VALUES (1234, 'Gough Menzies', 32);
+</code></pre><p>Add a column:</p>
+<pre><code class="language-{sql," data-lang="{sql,">ALTER TABLE table_name
+  ADD COLUMN column4 TEXT;
+</code></pre><h1 id="viewing-the-data">Viewing the data</h1>
+<p>See one column (similar to R&rsquo;s select):</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT column2
+  FROM table_name;
+</code></pre><p>See two columns:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT column1, column2
+  FROM table_name;
+</code></pre><p>See all columns:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT *
+  FROM table_name;
+</code></pre><p>See unique rows in a column (similar to R&rsquo;s distinct):</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT DISTINCT column2
+  FROM table_name;
+</code></pre><p>See the rows that match a criteria (similar idea to R&rsquo;s which or filter):</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT *
+  FROM table_name
+    WHERE column3 &gt; 30;
+</code></pre><p>All the usual operators are fine with WHERE: =, !=, &gt;, &lt;, &gt;=, &lt;=. Just make sure the condition evaluates to true/false.</p>
+<p>See the rows that are pretty close to a criteria:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT *
+  FROM table_name
+    WHERE column2 LIKE  '_ough Menzies';
+</code></pre><p>The _ above is a wildcard that matches to any character e.g. &lsquo;Cough Menzies&rsquo; would be matched here, as would &lsquo;Gough Menzies&rsquo;. LIKE is not case-sensitive: &lsquo;Gough Menzies&rsquo; and &lsquo;gough menzies&rsquo; would both match here.</p>
+<p>Use % as an anchor to matches pieces:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT *
+  FROM table_name
+    WHERE column2 LIKE  '%Menzies';
+</code></pre><p>That matches anything ending with &lsquo;Menzies&rsquo;, so &lsquo;Cough Menzies&rsquo;, &lsquo;Gough Menzies&rsquo;, &lsquo;Sir Menzies&rsquo; etc, would all be matched here. Use surrounding percentages to match within, e.g. %Menzies% would also match &lsquo;Sir Menzies Jr&rsquo; whereas %Menzies would not.</p>
+<p>This is wild: NULL values (!) (True/False/NULL) are possible, not just True/False, but they need to be explicitly matched for:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT *
+  FROM table_name
+    WHERE column2 IS NOT NULL;
+</code></pre><p>This too is wild: There&rsquo;s an underlying ordering build into number, date and text fields that allows you to use BETWEEN on all those, not just numeric! The following looks for text that starts with a letter between A and M (not including M) so would match &lsquo;Gough Menzies&rsquo;, but not &lsquo;Sir Gough Menzies&rsquo;!</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT *
+  FROM table_name
+    WHERE column2 BETWEEN 'A' AND 'M';
+</code></pre><p>If you look for a numeric (as opposed to text) then BETWEEN is inclusive.</p>
+<p>Combine conditions with AND (both must be true to be returned) or OR (at least one must be true):</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT *
+  FROM table_name
+    WHERE column2 BETWEEN 'A' AND 'M'
+    AND column3 = 32;
+</code></pre><p>You can order the result:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT *
+  FROM table_name
+    ORDER BY column3;
+</code></pre><p>Ascending is the default, add DESC for alternative:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT *
+  FROM table_name
+    ORDER BY column3 DESC;
+</code></pre><p>Restrict the return to a certain number of values by adding LIMIT at the end:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT *
+  FROM table_name
+    ORDER BY column3 DESC
+    LIMIT 1;
+</code></pre><p>(This doesn&rsquo;t work all the time - only certain SQL databases.)</p>
+<h1 id="modifying-data-and-using-logic">Modifying data and using logic</h1>
+<p>Edit a value:</p>
+<pre><code class="language-{sql," data-lang="{sql,">UPDATE table_name
+  SET column3 = 33
+    WHERE column1 = 1234;
+</code></pre><p>Implement if/else logic:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT *,
+  CASE
+    WHEN column2 = 'Gough Whitlam' THEN 'Labor'
+    WHEN column2 = 'Robert Menzies' THEN 'Liberal'
+    ELSE 'Who knows'
+  END AS 'Party'
+  FROM table_name;
+</code></pre><p>This returns a column called &lsquo;Party&rsquo; that looks at the name of the person to return a party.</p>
+<p>Delete some rows:</p>
+<pre><code class="language-{sql," data-lang="{sql,">DELETE FROM table_name
+  WHERE column3 IS NULL;
+</code></pre><p>Add an alias to a column name (this just shows in the output):</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT column2 AS 'Names'
+  FROM table_name;
+</code></pre><h1 id="summarising-data">Summarising data</h1>
+<p>We can use COUNT, SUM, MAX, MIN, AVG and ROUND in the place of summarise in R. COUNT counts the number of rows that are not empty for some column by passing the column name, or for all using *:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT COUNT(*)
+  FROM table_name;
+</code></pre><p>Similarly, pass a column to SUM, MAX, MIN, and AVG:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT SUM(column1)
+  FROM table_name;
+</code></pre><p>ROUND takes a column and an integer to specify how many decimal places:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT ROUND(column1, 0)
+  FROM table_name;
+</code></pre><p>SELECT and GROUP BY is similar to group_by in R:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT column3, COUNT(*)
+  FROM table_name
+    GROUP BY column3;
+</code></pre><p>You can GROUP BY column number instead of name e.g. 1 instead of column3 in the GROUP BY line or 2 instead of COUNT(*) if that was of interest.</p>
+<p>HAVING for aggregates, is similar to filter in R or the WHERE for rows from earlier. Use it after GROUP BY and before ORDER BY and LIMIT.</p>
+<h1 id="combining-data">Combining data</h1>
+<p>Combine two tables using JOIN or LEFT JOIN:</p>
+<pre><code class="language-{sql," data-lang="{sql,">SELECT *
+  FROM table1_name
+  JOIN table2_name
+    ON table1_name.colum1 = table2_name.column1;
+</code></pre><p>Be careful to specify the matching columns using dot notation. Primary key columns uniquely identify rows and are: 1) never NULL; 2) unique; 3) only one column per table. A primary key can be primary in one table and foreign in another. Unique columns have a different value for every row and there can be many in one table.</p>
+<p>UNION is the equivalent of cbind if the tables are already fairly similar.</p>
+</article>
+        
+
+        
+        
+        <nav role="navigation" class="flex-container bottom-menu">
+            
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/about">about</a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/academic">academic</a>
+        
+            &#183; 
+            <a href="/blog">blog</a>
+        
+            &#183; 
+            <a href="/bookshelf">bookshelf</a>
+        
+            &#183; 
+            <a href="/brownbag">brownbag</a>
+        
+    
+    &#183; 
+    <a href="/">
+        home
+    </a>
+
+</p>
+        </nav>
+        
+        
+    </main>
+    
+    <footer class="flex-container footer">Built with Hugo, Blogdown and the &lsquo;Call me Sam&rsquo; theme.</footer>
+    
+    
+</body>
+
+</html>

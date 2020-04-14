@@ -1,0 +1,40 @@
+---
+title: "Cleaning Hansard: The pay's not great but the work is hard"
+date: 2018-08-13
+showDate: true
+slug: cleaning-hansard
+draft: false
+---
+
+
+
+<p><em>Thanks to Monica for the title.</em></p>
+<p>After getting an email along the lines of ‘hey aren’t you doing something with Australia’s Hansard?’ I realised that I’ve been a bit remiss about sharing my Australian Hansard progress. This is the first of a series of posts to fix that.</p>
+<p>{{&lt; tweet 926509282874585089 &gt;}}</p>
+<p>I haven’t written about what I’ve been doing with Australian Hansard to this point because: 1) my knowledge of the political science literature is piecemeal and I’m sure someone must have already done all this and I just can’t find it; and 2) my coding knowledge is also piecemeal and there’s no doubt a million ways to better do what I’ve done so far. If anyone has advice on either aspect (or anything really!) I’d be keen to hear it - please email.</p>
+<p>Best I can tell, Australian Hansard is a treasure-trove of data and it’s hard to believe it hasn’t been more analysed. I’m probably missing a whole bunch of literature (insert standard joke about economists here) but so far I can really only find a handful of papers using Australia’s Hansard.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> There’s plenty of work using the parliamentary records of other Commonwealth countries such as Canada<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, NZ<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> and the UK<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>. I think that in Australia it’s really only Patrick Leslie who may be using it at the moment (big thank you to Jill Sheppard for pointing this out), but I’ll update this if I find others.</p>
+<p>The good news is that Australia’s Hansard has been digitised and is available on the parliament’s website, so a figurative pseudo-Manhattan-project isn’t required (cf. what was needed in Canada, see: <a href="https://www.lipad.ca/" class="uri">https://www.lipad.ca/</a>). If you just want short, specific, sections then the situation is fine - for pre-1981 go to Tim Sherratt’s brilliant Historic Hansard website (<a href="http://historichansard.net" class="uri">http://historichansard.net</a>); for 1981 to 2006 just use the parliament’s website; and for 2006 onward just use Open Australia. The bad news is that Hansard isn’t really available as a nice corpus for larger scale analysis. Making this nice corpus has been keeping me busy, and will be the subject of this series of posts.</p>
+<p>Helpfully, various people/organisations have gone to the Hansard website to get the XML files they provide and made them available as an easy download (note that these tend to have been posted as they were provided by the parliament, so they’re full of typos, transcription errors, and a bunch of other mistakes):</p>
+<ul>
+<li>1901-1980 Hansard is available as XML from Tim Sherratt’s Historic Hansard Github - <a href="https://github.com/wragge/hansard-xml" class="uri">https://github.com/wragge/hansard-xml</a>.</li>
+<li>1998-2014 Hansard is available from Andrew Turpin’s website at University of Melbourne (<a href="https://people.eng.unimelb.edu.au/aturpin/qtCorpus/index.html" class="uri">https://people.eng.unimelb.edu.au/aturpin/qtCorpus/index.html</a>).</li>
+<li>2006-current is available from Open Australia’s website (<a href="http://data.openaustralia.org.au/origxml/" class="uri">http://data.openaustralia.org.au/origxml/</a>).</li>
+</ul>
+<p>These helpful people/organisations were able to get those dates (1901-1980 and 1998-current) because the Hansard provides the XML for those years on their website. The problem is the 1980s and the early/mid 1990s because they don’t have the XML available on the website (and from emails with them - it seems as though they simply don’t have it) - the only choice seems to be either to scrape it manually from the Hansard website or to grab all the PDFs, convert them, and then fix the mistakes. I’ve started on the second option - unsure how wise it is but I don’t know of any alternative.</p>
+<p>Future posts:</p>
+<ul>
+<li>Who has been elected to parliament?</li>
+<li>What divisions are relevant?</li>
+<li>What parties are relevant?</li>
+<li>Hansard pre-1981</li>
+<li>Hansard post-1980</li>
+</ul>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>For instance: Turpin ‘An Attempt to Measure the Quality of Questions in Question Time of the Australian Federal Parliament’.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>For instance: Beelen, Thijm, Cochrane, Halvemaan, Hirst, Kimmins, Lijbrink, Marx, Naderi, Rheault, Polyanovsky, Whyte ‘Digitization of the Canadian Parliamentary Debates’.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>For instance: Curran, Higham, Ortiz, Vasques Filho ‘Look Who’s Talking: Bipartite Networks as Representations of a Topic Model of New Zealand Parliamentary Speeches’.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>For instance: Abercrombie, Batista-Navarro ‘Aye or No? Speech-level Sentiment Analysis of Hansard UK Parliamentary Debate Transcripts’<a href="#fnref4" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
