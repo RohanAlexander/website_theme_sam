@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog on Rohan Alexander</title>
+    <title>Blog on </title>
     <link>/blog/</link>
-    <description>Recent content in Blog on Rohan Alexander</description>
+    <description>Recent content in Blog on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-ca</language>
     <lastBuildDate>Tue, 13 Feb 2018 12:21:57 -0500</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
@@ -17,9 +16,7 @@
       <pubDate>Tue, 14 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>/blog/2020-04-14-tidying-the-2019-kenyan-census/</guid>
-      <description>Introduction The distribution of population by age, sex, and administrative unit from the 2019 Kenyan census can be downloaded here: https://www.knbs.or.ke/?wpdmpro=2019-kenya-population-and-housing-census-volume-iii-distribution-of-population-by-age-sex-and-administrative-units.
-And while it is great that they make it easily available, and it is easy to look-up a particular result, it is not overly useful to do larger-scale data analysis, such as building a Bayesian hierarchical model.
-In this blog post I convert a PDF of Kenyan census results of counts, by age and sex, by county and sub-county, into a tidy dataset that can be analysed.</description>
+      <description>1 Introduction 2 Workspace set-up 3 Get the data into R 4 Cleaning 4.1 Values 4.2 Areas 4.3 Ages  5 Checks 5.1 Check gender sum 5.2 Check rural urban split 5.3 Check ages sum to age-groups  6 Final tidying 7 Make Monica’s dataset References   1 Introduction The distribution of population by age, sex, and administrative unit from the 2019 Kenyan census can be downloaded here: https://www.</description>
     </item>
     
     <item>

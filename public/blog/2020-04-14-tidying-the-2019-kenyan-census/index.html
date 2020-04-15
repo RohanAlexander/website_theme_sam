@@ -12,7 +12,7 @@
 
 <meta name="description" content="Rohan Alexander&#39;s personal website.">
 <title>
-    Tidying the 2019 Kenyan Census - Rohan Alexander
+    Tidying the 2019 Kenyan Census - 
 </title>
 
 
@@ -38,14 +38,10 @@
 <meta name="twitter:image" content="/tn.png"/>
 
 <meta name="twitter:title" content="Tidying the 2019 Kenyan Census"/>
-<meta name="twitter:description" content="Introduction The distribution of population by age, sex, and administrative unit from the 2019 Kenyan census can be downloaded here: https://www.knbs.or.ke/?wpdmpro=2019-kenya-population-and-housing-census-volume-iii-distribution-of-population-by-age-sex-and-administrative-units.
-And while it is great that they make it easily available, and it is easy to look-up a particular result, it is not overly useful to do larger-scale data analysis, such as building a Bayesian hierarchical model.
-In this blog post I convert a PDF of Kenyan census results of counts, by age and sex, by county and sub-county, into a tidy dataset that can be analysed."/>
+<meta name="twitter:description" content="1 Introduction 2 Workspace set-up 3 Get the data into R 4 Cleaning 4.1 Values 4.2 Areas 4.3 Ages  5 Checks 5.1 Check gender sum 5.2 Check rural urban split 5.3 Check ages sum to age-groups  6 Final tidying 7 Make Monica’s dataset References   1 Introduction The distribution of population by age, sex, and administrative unit from the 2019 Kenyan census can be downloaded here: https://www."/>
 
 <meta property="og:title" content="Tidying the 2019 Kenyan Census" />
-<meta property="og:description" content="Introduction The distribution of population by age, sex, and administrative unit from the 2019 Kenyan census can be downloaded here: https://www.knbs.or.ke/?wpdmpro=2019-kenya-population-and-housing-census-volume-iii-distribution-of-population-by-age-sex-and-administrative-units.
-And while it is great that they make it easily available, and it is easy to look-up a particular result, it is not overly useful to do larger-scale data analysis, such as building a Bayesian hierarchical model.
-In this blog post I convert a PDF of Kenyan census results of counts, by age and sex, by county and sub-county, into a tidy dataset that can be analysed." />
+<meta property="og:description" content="1 Introduction 2 Workspace set-up 3 Get the data into R 4 Cleaning 4.1 Values 4.2 Areas 4.3 Ages  5 Checks 5.1 Check gender sum 5.2 Check rural urban split 5.3 Check ages sum to age-groups  6 Final tidying 7 Make Monica’s dataset References   1 Introduction The distribution of population by age, sex, and administrative unit from the 2019 Kenyan census can be downloaded here: https://www." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blog/2020-04-14-tidying-the-2019-kenyan-census/" />
 <meta property="og:image" content="/tn.png"/>
@@ -76,44 +72,51 @@ In this blog post I convert a PDF of Kenyan census results of counts, by age and
         
         <article role="article" class="flex-container">
 
+<div id="TOC">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#workspace-set-up"><span class="toc-section-number">2</span> Workspace set-up</a></li>
+<li><a href="#get-the-data-into-r"><span class="toc-section-number">3</span> Get the data into R</a></li>
+<li><a href="#cleaning"><span class="toc-section-number">4</span> Cleaning</a><ul>
+<li><a href="#values"><span class="toc-section-number">4.1</span> Values</a></li>
+<li><a href="#areas"><span class="toc-section-number">4.2</span> Areas</a></li>
+<li><a href="#ages"><span class="toc-section-number">4.3</span> Ages</a></li>
+</ul></li>
+<li><a href="#checks"><span class="toc-section-number">5</span> Checks</a><ul>
+<li><a href="#check-gender-sum"><span class="toc-section-number">5.1</span> Check gender sum</a></li>
+<li><a href="#check-rural-urban-split"><span class="toc-section-number">5.2</span> Check rural urban split</a></li>
+<li><a href="#check-ages-sum-to-age-groups"><span class="toc-section-number">5.3</span> Check ages sum to age-groups</a></li>
+</ul></li>
+<li><a href="#final-tidying"><span class="toc-section-number">6</span> Final tidying</a></li>
+<li><a href="#make-monicas-dataset"><span class="toc-section-number">7</span> Make Monica’s dataset</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
 
 <div id="introduction" class="section level1">
-<h1>Introduction</h1>
+<h1><span class="header-section-number">1</span> Introduction</h1>
 <p>The distribution of population by age, sex, and administrative unit from the 2019 Kenyan census can be downloaded here: <a href="https://www.knbs.or.ke/?wpdmpro=2019-kenya-population-and-housing-census-volume-iii-distribution-of-population-by-age-sex-and-administrative-units" class="uri">https://www.knbs.or.ke/?wpdmpro=2019-kenya-population-and-housing-census-volume-iii-distribution-of-population-by-age-sex-and-administrative-units</a>.</p>
 <p>And while it is great that they make it easily available, and it is easy to look-up a particular result, it is not overly useful to do larger-scale data analysis, such as building a Bayesian hierarchical model.</p>
 <p>In this blog post I convert a PDF of Kenyan census results of counts, by age and sex, by county and sub-county, into a tidy dataset that can be analysed. I will draw on an introduce a bunch of handy packages including: <code>janitor</code> by <span class="citation">Firke (2020)</span>, <code>pdftools</code> by <span class="citation">Ooms (2019)</span>, <code>tidyverse</code> by <span class="citation">Wickham et al. (2019)</span>, and <code>stringi</code> by <span class="citation">Gagolewski (2020)</span>.</p>
-<p>If you just want the cleaned tidied data then it is <a href="outputs/data/cleaned_kenya_2019_census.csv">here</a>.</p>
+<p>If you just want the cleaned tidied data, then it is <a href="outputs/data/cleaned_kenya_2019_census.csv">here</a>.</p>
 </div>
 <div id="workspace-set-up" class="section level1">
-<h1>Workspace set-up</h1>
+<h1><span class="header-section-number">2</span> Workspace set-up</h1>
 <p>To get started I need to load the necessary packages.</p>
-<pre class="r"><code>library(janitor)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;janitor&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     chisq.test, fisher.test</code></pre>
-<pre class="r"><code>library(pdftools)
-library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.2.1     ✓ purrr   0.3.3
-## ✓ tibble  2.1.3     ✓ dplyr   0.8.4
-## ✓ tidyr   1.0.2     ✓ stringr 1.4.0
-## ✓ readr   1.3.1     ✓ forcats 0.4.0</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(stringi)</code></pre>
+<pre class="r"><code>library(janitor)
+library(pdftools)
+library(tidyverse)
+library(stringi)</code></pre>
 <p>And then I need to read in the PDF that I want to convert.</p>
 <pre class="r"><code># Read in the PDF
 all_content &lt;- pdftools::pdf_text(&quot;inputs/pdfs/2019_Kenya_census.pdf&quot;)</code></pre>
-<p>The <code>pdf_text</code> function from <code>pdftools</code> is useful when you have a PDF and you want to read the content into R. For many recently produced PDFs it’ll work pretty well, but there are alternatives. If the PDF is an image then it won’t work and you’ll need to turn to OCR.</p>
+<p>The <code>pdf_text</code> function from <code>pdftools</code> is useful when you have a PDF and you want to read the content into R. For many recently produced PDFs it’ll work pretty well, but there are alternatives. If the PDF is an image, then it won’t work and you’ll need to turn to OCR.</p>
 <p>You can see a page of the PDF here:</p>
 <pre class="r"><code>knitr::include_graphics(&quot;images/2020-04-10-screenshot-of-census.png&quot;) </code></pre>
 <p><img src="images/2020-04-10-screenshot-of-census.png" width="85%" /></p>
 </div>
 <div id="get-the-data-into-r" class="section level1">
-<h1>Get the data into R</h1>
+<h1><span class="header-section-number">3</span> Get the data into R</h1>
 <p>The first challenge is to get the dataset into a format that we can more easily manipulate. The way that I am going to do this is to consider each page of the PDF and extract the relevant parts. To do this, I first write a function that I want to apply to each page.</p>
 <pre class="r"><code># The function is going to take an input of a page
 get_data &lt;- function(i){
@@ -185,10 +188,10 @@ all_tables &lt;- map_dfr(pages, get_data)
 rm(pages, get_data, all_content)</code></pre>
 </div>
 <div id="cleaning" class="section level1">
-<h1>Cleaning</h1>
+<h1><span class="header-section-number">4</span> Cleaning</h1>
 <p>I now need to clean the dataset to make it useful.</p>
 <div id="values" class="section level2">
-<h2>Values</h2>
+<h2><span class="header-section-number">4.1</span> Values</h2>
 <p>The first step is to make the numbers into actual numbers, rather than characters. Before I can convert the type I need to remove anything that is not a number otherwise it’ll be converted into an NA. So I first identify any values that are not numbers so that I can remove them.</p>
 <pre class="r"><code># Need to convert male, female, and total to integers
 # First find the characters that should not be in there
@@ -220,7 +223,7 @@ all_tables$male[all_tables$male == &quot;15-Aug&quot;] &lt;- 4611</code></pre>
   mutate_at(vars(male, female, total), ~as.integer(.))</code></pre>
 </div>
 <div id="areas" class="section level2">
-<h2>Areas</h2>
+<h2><span class="header-section-number">4.2</span> Areas</h2>
 <p>The next thing to clean is the areas. We know that there are 47 counties in Kenya, and a whole bunch of sub-counties. They give us a list on pages 19 to 22 of the PDF (document pages 7 to 10). However, this list is not complete, and there are a few minor issues that we’ll deal with later.</p>
 <p>In any case, I first need to fix a few inconsistencies.</p>
 <pre class="r"><code># Fix some area names
@@ -307,7 +310,7 @@ all_tables &lt;-
 rm(list_counties)</code></pre>
 </div>
 <div id="ages" class="section level2">
-<h2>Ages</h2>
+<h2><span class="header-section-number">4.3</span> Ages</h2>
 <p>Now we can deal with the ages.</p>
 <p>First we need to fix some errors.</p>
 <pre class="r"><code># Clean up ages
@@ -332,9 +335,9 @@ all_tables$age_type &lt;- if_else(str_detect(all_tables$age, c(&quot;Total&quot;
 </div>
 </div>
 <div id="checks" class="section level1">
-<h1>Checks</h1>
+<h1><span class="header-section-number">5</span> Checks</h1>
 <div id="check-gender-sum" class="section level2">
-<h2>Check gender sum</h2>
+<h2><span class="header-section-number">5.1</span> Check gender sum</h2>
 <p>Given the format of the data, at this point it is easy to check that <code>total</code> is the sum of <code>male</code> and <code>female</code>.</p>
 <pre class="r"><code># Check the parts and the sums
 follow_up &lt;- 
@@ -350,7 +353,7 @@ all_tables$male[all_tables$age == &quot;10&quot; &amp; all_tables$page == 187] &
 rm(follow_up)</code></pre>
 </div>
 <div id="check-rural-urban-split" class="section level2">
-<h2>Check rural urban split</h2>
+<h2><span class="header-section-number">5.2</span> Check rural urban split</h2>
 <p>The census provides different tables for the total of each county and sub-county; and then within each county, for the number in an urban area in that county, and the number in a urban area in that county. Some counties only have an urban count, but we’d like to make sure that the sum of rural and urban counts equals the total count. This requires reshaping the data from a long to wide format.</p>
 <p>First, construct different tables for each of the three. I just do it manually, but I could probably do this a nicer way.</p>
 <pre class="r"><code># Table 2.3
@@ -397,7 +400,7 @@ head(follow_up)</code></pre>
 <p>There are just a few, but they only have a a difference of 1, so I’ll just move on.</p>
 </div>
 <div id="check-ages-sum-to-age-groups" class="section level2">
-<h2>Check ages sum to age-groups</h2>
+<h2><span class="header-section-number">5.3</span> Check ages sum to age-groups</h2>
 <p>Finally, I want to check that the single age counts sum to the age-groups.</p>
 <pre class="r"><code># One last thing to check is that the ages sum to their age-groups.
 follow_up &lt;- 
@@ -450,7 +453,7 @@ head(follow_up)</code></pre>
 </div>
 </div>
 <div id="final-tidying" class="section level1">
-<h1>Final tidying</h1>
+<h1><span class="header-section-number">6</span> Final tidying</h1>
 <p>Now that we are confident that everything is looking good, we can just convert it to long-format so that it is easy to work with.</p>
 <pre class="r"><code>all &lt;- 
   all %&gt;% 
@@ -478,7 +481,7 @@ head(all)</code></pre>
 ## 6 Mombasa county    rural        Total age-group total       NA</code></pre>
 </div>
 <div id="make-monicas-dataset" class="section level1">
-<h1>Make Monica’s dataset</h1>
+<h1><span class="header-section-number">7</span> Make Monica’s dataset</h1>
 <p>The original purpose of all of this was to make a table for Monica. She needed single-year counts, by gender, for the counties.</p>
 <pre class="r"><code>monicas_dataset &lt;- 
   all %&gt;% 
@@ -513,6 +516,9 @@ head(monicas_dataset)</code></pre>
        title = &quot;Distribution of age and gender in Nairobi in 2019&quot;,
        caption = &quot;Data source: 2019 Kenya Census&quot;)</code></pre>
 <p><img src="/blog/2020-04-14-tidying-the-2019-kenyan-census/index_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
 <div id="refs" class="references">
 <div id="ref-janitor">
 <p>Firke, Sam. 2020. <em>Janitor: Simple Tools for Examining and Cleaning Dirty Data</em>. <a href="https://CRAN.R-project.org/package=janitor">https://CRAN.R-project.org/package=janitor</a>.</p>
@@ -578,13 +584,20 @@ head(monicas_dataset)</code></pre>
         
     </main>
     
-    <footer class="flex-container footer">Built with Hugo, Blogdown and the &lsquo;Call me Sam&rsquo; theme.
+    <footer class="flex-container footer">
 
 
     <script src="//yihui.name/js/math-code.js"></script>
 <script async
 src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
-</script></footer>
+</script>
+
+
+<script src="https://kit.fontawesome.com/4a9dcacee9.js" crossorigin="anonymous"></script>
+
+ <link rel="stylesheet" href="/css/atom-one-dark.css" rel="stylesheet" id="theme-stylesheet"> 
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script></footer>
     
     
 </body>

@@ -3,6 +3,10 @@ date: "2018-02-13T13:42:49-05:00"
 title: About
 ---
 
+
+
+
+
 Hi, I’m Rohan Alexander.
 
 I am a post-doc at the Faculty of Information Sciences at the University of Toronto, Canada. From July I'll be an Assistant Professor in the iSchool and Statistical Sciences at the University of Toronto.
@@ -18,6 +22,6 @@ Finally, I probably spend too much money on books, and certainly too much time a
 [Academic CV](pdfs/cv-academic-Rohan_Alexander.pdf)  
 [Professional CV](pdfs/2019-09-04-canada_cv-professional-RohanAlexander.pdf)
 
-Twitter: https://twitter.com/RohanAlexander  
-Github: https://github.com/RohanAlexander  
-Email: rohan.alexander@utoronto.ca
+[<i class="fas fa-envelope"></i>](mailto:rohan.alexander@utoronto.ca)
+[<i class="fab fa-github"></i>](https://github.com/RohanAlexander)
+[<i class="fab fa-twitter"></i>](https://twitter.com/RohanAlexander)

@@ -1,3 +1,6 @@
+[markup.goldmark.renderer]
+unsafe = true
+
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 baseurl                  = "/"           # Your domain name
@@ -6,7 +9,7 @@ defaultContentLanguage   = "en"
 isMultilingual           = false
 title                    = "Rohan Alexander"
 theme                    = "hugo-theme-sam"
-pygmentsStyle            = "monokai"                        # https://help.farbox.com/pygments.html
+pygmentsStyle            = "default"                        # https://help.farbox.com/pygments.html
 pygmentsCodefences       = true
 # googleAnalytics        = ""                               # Tracking code, eg. "UA-111111111-1"
 
@@ -15,7 +18,7 @@ pygmentsCodefences       = true
     dateformfull         = "2 Jan 2006 15:04:05 EST"
     favicon              = "sam.ico"
     homepage             = "home"                           # What to call the home page link
-    footerText           = "Built with Hugo, Blogdown and the 'Call me Sam' theme."
+    footerText           = ""
 
 # Metadata for Open Graph and Twitter
     description          = "Rohan Alexander's personal website."               # Max 160 characters show in search results
